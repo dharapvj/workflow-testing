@@ -14,13 +14,9 @@ jobs:
   helm-update:
     runs-on: ubuntu-20.04
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-      - name: Simple output
-        working-directory: step3
-        run: |
-          pwd
-          cat step3.txt
-          echo $INPUT_USERNAME
-        with:
-          userName: ${{ inputs.username }}
+    - name: Check out repository
+      uses: actions/checkout@v2
+    - name: Simple output
+      uses: actions/hello-world-javascript-action@v1.1
+      with:
+        who-to-greet: ${{ inputs.username }}
