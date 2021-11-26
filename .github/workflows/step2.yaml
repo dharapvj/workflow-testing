@@ -1,0 +1,13 @@
+name: "KKP Deploy Only"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'step2/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'step2/**'

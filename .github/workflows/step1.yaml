@@ -1,0 +1,13 @@
+name: "Kubeone install Only"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'step1/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'step1/**'

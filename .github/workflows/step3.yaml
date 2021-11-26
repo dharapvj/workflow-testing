@@ -1,0 +1,13 @@
+name: "Flux Deploy Only"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'step3/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'step3/**'
