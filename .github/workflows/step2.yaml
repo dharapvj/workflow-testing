@@ -12,10 +12,10 @@ on:
     paths:
       - 'step2/**'
   workflow_call:
-    inputs:
-      username:
-        required: false
-        type: string
+    # inputs:
+    #   username:
+    #     required: false
+    #     type: string
 
 concurrency: ci-${{ github.ref }}
 
@@ -26,14 +26,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Simple output
-        with:
-          userName: ${{ inputs.username }}
         working-directory: step2
         run: |
           cat step2.txt
-          echo $userName
     call-flux-workflow:
       uses: ./.github/workflows/step3.yml
-      with:
-        username: vj
+      # with:
+      #   username: vj
       #uses: dharapvj/workflow-testing/.github/workflows/step3.yml@main
