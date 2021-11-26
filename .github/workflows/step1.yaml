@@ -11,3 +11,16 @@ on:
       - main
     paths:
       - 'step1/**'
+
+concurrency: ci-${{ github.ref }}
+
+jobs:
+  kubeone-install:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Simple output
+        working-directory: step1
+        run: |
+          cat step1.txt

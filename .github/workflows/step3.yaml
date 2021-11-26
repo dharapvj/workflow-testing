@@ -11,3 +11,17 @@ on:
       - main
     paths:
       - 'step3/**'
+
+
+concurrency: ci-${{ github.ref }}
+
+jobs:
+  helm-update:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Simple output
+        working-directory: step3
+        run: |
+          cat step3.txt
