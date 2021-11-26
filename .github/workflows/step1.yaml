@@ -19,7 +19,7 @@ jobs:
     uses: dharapvj/workflow-testing/.github/workflows/reuse-kubeone-install.yaml@main
   kkp-install:
     uses: dharapvj/workflow-testing/.github/workflows/reuse-kkp-deploy.yaml@main
-  # call-flux-workflow:
-  #   uses: dharapvj/workflow-testing/.github/workflows/reuse-flux-deploy.yaml@main
-  #   with:
-  #     username: vj
+  call-flux-workflow:
+    uses: dharapvj/workflow-testing/.github/workflows/reuse-flux-deploy.yaml@main
+    with:
+      username: vj
