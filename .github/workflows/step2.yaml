@@ -30,7 +30,6 @@ jobs:
         run: |
           cat step2.txt
   call-flux-workflow:
-    uses: ./.github/workflows/step3.yml@main
+    uses: dharapvj/workflow-testing/.github/workflows/step3.yml@main
     # with:
     #   username: vj
-    #uses: dharapvj/workflow-testing/.github/workflows/step3.yml@main
