@@ -29,8 +29,8 @@ jobs:
         working-directory: step2
         run: |
           cat step2.txt
-    call-flux-workflow:
-      uses: ./.github/workflows/step3.yml
-      # with:
-      #   username: vj
-      #uses: dharapvj/workflow-testing/.github/workflows/step3.yml@main
+  call-flux-workflow:
+    uses: ./.github/workflows/step3.yml
+    # with:
+    #   username: vj
+    #uses: dharapvj/workflow-testing/.github/workflows/step3.yml@main
