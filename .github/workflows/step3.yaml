@@ -17,8 +17,8 @@ on:
     #     required: false
     #     type: string
 
-
-concurrency: ci-${{ github.ref }}
+# concurrancy is not supported for "called" workflows
+#concurrency: ci-${{ github.ref }}
 
 jobs:
   helm-update:
