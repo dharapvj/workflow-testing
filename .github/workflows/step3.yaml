@@ -12,10 +12,10 @@ on:
     paths:
       - 'step3/**'
   workflow_call:
-    # inputs:
-    #   username:
-    #     required: false
-    #     type: string
+    inputs:
+      username:
+        required: false
+        type: string
 
 # concurrancy is not supported for "called" workflows
 #concurrency: ci-${{ github.ref }}
@@ -27,9 +27,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Simple output
-        # with:
-        #   userName: ${{ inputs.username }}
+        with:
+          userName: ${{ inputs.username }}
         working-directory: step3
         run: |
           cat step3.txt
-          # echo $userName
+          echo $userName

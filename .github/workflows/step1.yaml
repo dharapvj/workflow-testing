@@ -24,3 +24,7 @@ jobs:
         working-directory: step1
         run: |
           cat step1.txt
+  call-kkp-install:
+    uses: dharapvj/workflow-testing/.github/workflows/step2.yaml@main
+    # with:
+    #   username: vj

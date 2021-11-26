@@ -17,7 +17,8 @@ on:
     #     required: false
     #     type: string
 
-concurrency: ci-${{ github.ref }}
+# concurrancy is not supported for "called" workflows
+#concurrency: ci-${{ github.ref }}
 
 jobs:
   kkp-install:
@@ -31,5 +32,5 @@ jobs:
           cat step2.txt
   call-flux-workflow:
     uses: dharapvj/workflow-testing/.github/workflows/step3.yaml@main
-    # with:
-    #   username: vj
+    with:
+      username: vj
