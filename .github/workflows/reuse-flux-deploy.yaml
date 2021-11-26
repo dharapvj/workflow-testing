@@ -19,7 +19,8 @@ jobs:
       - name: Simple output
         with:
           userName: ${{ inputs.username }}
-        working-directory: step3
+        # working-directory: step3
         run: |
+          pwd
           cat step3.txt
           echo $userName
