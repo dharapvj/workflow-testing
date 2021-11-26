@@ -1,0 +1,18 @@
+name: "Kubeone install Only"
+
+on:
+  workflow_call:
+
+# concurrancy is not supported for "called" workflows
+#concurrency: ci-${{ github.ref }}
+
+jobs:
+  kubeone-install:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Simple output
+        working-directory: step1
+        run: |
+          cat step1.txt

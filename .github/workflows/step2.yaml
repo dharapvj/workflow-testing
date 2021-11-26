@@ -11,26 +11,13 @@ on:
       - main
     paths:
       - 'step2/**'
-  workflow_call:
-    # inputs:
-    #   username:
-    #     required: false
-    #     type: string
 
-# concurrancy is not supported for "called" workflows
-#concurrency: ci-${{ github.ref }}
+concurrency: ci-${{ github.ref }}
 
 jobs:
   kkp-install:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-      - name: Simple output
-        working-directory: step2
-        run: |
-          cat step2.txt
+    uses: dharapvj/workflow-testing/.github/workflows/reuse-kkp-deploy.yaml@main
   call-flux-workflow:
-    uses: dharapvj/workflow-testing/.github/workflows/step3.yaml@main
+    uses: dharapvj/workflow-testing/.github/workflows/reuse-flux-deploy.yaml@main
     with:
       username: vj

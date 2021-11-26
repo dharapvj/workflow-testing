@@ -11,25 +11,11 @@ on:
       - main
     paths:
       - 'step3/**'
-  workflow_call:
-    inputs:
-      username:
-        required: false
-        type: string
 
-# concurrancy is not supported for "called" workflows
-#concurrency: ci-${{ github.ref }}
+concurrency: ci-${{ github.ref }}
 
 jobs:
-  helm-update:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-      - name: Simple output
-        with:
-          userName: ${{ inputs.username }}
-        working-directory: step3
-        run: |
-          cat step3.txt
-          echo $userName
+  call-flux-workflow:
+    uses: dharapvj/workflow-testing/.github/workflows/reuse-flux-deploy.yaml@main
+    with:
+      username: vj
