@@ -7,11 +7,34 @@ spec:
   destination:
     namespace: cert-manager
     server: 'https://kubernetes.default.svc'
-  source:
-    repoURL: 'https://charts.jetstack.io/'
-    targetRevision: v1.6.1
-    chart: cert-manager
   project: default
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+  source:
+    repoURL: 'https://charts.jetstack.io/'
+    targetRevision: v1.6.1
+    chart: cert-manager
+    helm:
+      values: |
+        installCRDs: true
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    # You must replace this email address with your own.
+    # Let's Encrypt will use this to contact you about expiring
+    # certificates, and issues related to your account.
+    email: dream.it.pvt.ltd@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      # Secret resource that will be used to store the account's private key.
+      name: dh4r4pvj-ga-issuer-account-key
+    # Add a single challenge solver, HTTP01 using nginx
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
