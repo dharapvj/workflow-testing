@@ -8,12 +8,42 @@ spec:
     name: ''
     namespace: kube2iam
     server: 'https://kubernetes.default.svc'
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
   source:
     path: ''
     repoURL: 'https://jtblin.github.io/kube2iam/'
     targetRevision: 2.6.0
     chart: kube2iam
-  project: default
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
+    helm:
+      values: |
+        host:
+          # docker0 is used
+          iptables: true
+          # flannel
+          #interface: cni0
+          # Calico
+          interface: cali+
+        rbac:
+          create: true
+        extraArgs:
+          auto-discover-base-arn: 
+          auto-discover-default-role: true
+        verbose: false
+        resources:
+          limits:
+            cpu: 4m
+            memory: 16Mi
+          requests:
+            cpu: 4m
+            memory: 16Mi
+        prometheus:
+          service:
+            enabled: true
+          serviceMonitor:
+            enabled: false
+            labels:
+              release: kube-prometheus-stack
+
