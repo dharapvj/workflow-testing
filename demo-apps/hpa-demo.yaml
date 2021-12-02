@@ -4,7 +4,7 @@ metadata:
   name: php-apache
   annotations:
     # Add below annotations to deployment
-    hpa.autoscaling.banzaicloud.io/minReplicas: "3"
+    hpa.autoscaling.banzaicloud.io/minReplicas: "1"
     hpa.autoscaling.banzaicloud.io/maxReplicas: "8"
     cpu.hpa.autoscaling.banzaicloud.io/targetAverageUtilization: "60"
 spec:

@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube2iam
+  namespace: argocd  # MANDATORY
+spec:
+  destination:
+    name: ''
+    namespace: kube2iam
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://jtblin.github.io/kube2iam/'
+    targetRevision: 2.6.0
+    chart: kube2iam
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

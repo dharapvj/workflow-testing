@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: argocd  # MANDATORY
+spec:
+  destination:
+    name: ''
+    namespace: external-dns
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://charts.bitnami.com/bitnami'
+    targetRevision: 5.5.0
+    chart: external-dns
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
