@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-ingress-controller
+  namespace: argocd  # MANDATORY
+spec:
+  destination:
+    name: ''
+    namespace: ingress-nginx
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://kubernetes.github.io/ingress-nginx'
+    targetRevision: 4.0.12
+    chart: ingress-nginx
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

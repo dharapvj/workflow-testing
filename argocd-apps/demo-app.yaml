@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-app
+  namespace: argocd  # MANDATORY
+spec:
+  destination:
+    name: ''
+    namespace: demoapp
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: demo-app
+    repoURL: 'https://github.com/dharapvj/workflow-testing'
+    targetRevision: HEAD
+    directory:
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
