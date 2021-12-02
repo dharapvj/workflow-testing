@@ -1,0 +1,18 @@
+server:
+  ingress:
+    enabled: true
+    hosts:
+    - argo.dh4r4pvj.ga
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+  # Configmap argocd-cm
+  config:
+    configManagementPlugins: |
+      # for delivery of helm charts from external repository using the values from local repository
+      - name: helm-chart-external
+        init:
+          command: [bash, -c]
+          args: ["git clone $GIT_REPO_URL"]
+        generate:
+          command: [bash, -c]
+          args: ["helm template -n $ARGOCD_APP_NAMESPACE $ARGOCD_APP_NAME $GIT_REPO_NAME/$CHART_PATH -f $VALUES_FILE"]

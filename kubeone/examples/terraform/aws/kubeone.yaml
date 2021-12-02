@@ -1,0 +1,11 @@
+apiVersion: kubeone.io/v1beta1
+kind: KubeOneCluster
+versions:
+  kubernetes: '1.21.5'
+cloudProvider:
+  aws: {}
+addons:
+  enable: true
+  path: "./addons" #l always apply
+  addons:
+  - name: cluster-autoscaler
