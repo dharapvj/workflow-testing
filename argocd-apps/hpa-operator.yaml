@@ -1,20 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: demo-app
+  name: hpa-operator
   namespace: argocd  # MANDATORY
 spec:
   destination:
-    name: ''
-    namespace: demoapp
+    namespace: hpa-operator
     server: 'https://kubernetes.default.svc'
   source:
-    path: demo-apps
-    repoURL: 'https://github.com/dharapvj/workflow-testing'
-    targetRevision: HEAD
-    directory:
+    repoURL: 'https://kubernetes-charts.banzaicloud.com'
+    targetRevision: 0.4.0
+    chart: hpa-operator
   project: default
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
----
