@@ -17,6 +17,10 @@ spec:
     chart: kube-prometheus-stack
     helm:
       values: |
+        kubeScheduler:
+          enabled: false
+        kubeControllerManager:
+          enabled: false
         grafana:
           ingress:
             enabled: true
