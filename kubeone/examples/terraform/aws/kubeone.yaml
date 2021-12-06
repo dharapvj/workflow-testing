@@ -9,3 +9,4 @@ addons:
   path: "./addons" #l always apply
   addons:
   - name: cluster-autoscaler
+  - name: default-storage-class

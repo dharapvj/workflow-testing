@@ -11,27 +11,45 @@ spec:
       storage: 2Mi
   storageClassName: efs-client
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-ebs-volume
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 2Mi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ebs-vol-deploy
+  name: efs-vol-deploy
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: ebs-vol-test
+      app: efs-vol-test
   template:
     metadata:
       labels:
-        app: ebs-vol-test
+        app: efs-vol-test
     spec:
       volumes:
       - name: task-volume
         persistentVolumeClaim:
           claimName: my-efs-volume
+      - name: fixed-volume
+        persistentVolumeClaim:
+          claimName: my-ebs-volume
       containers:
       - image: dharapvj/bgcolor-text-demo:1.0
         name: test-container
         volumeMounts:
         - name: task-volume
-          mountPath: "/test-efs"
+          mountPath: "/efs"
+        volumeMounts:
+        - name: fixed-volume
+          mountPath: "/ebs"
