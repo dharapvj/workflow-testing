@@ -34,7 +34,7 @@ spec:
 
         # set via helm so that you can refer to role ARN from terraform
         podAnnotations:
-          iam.amazonaws.com/role: "external-dns-role"
+          iam.amazonaws.com/role: "external-dns-role-demo"
 
         resources:
           limits:

@@ -272,7 +272,7 @@ resource "aws_iam_role_policy" "policy" {
 ############################ CONTROL PLANE INSTANCES ###########################
 
 resource "aws_instance" "control_plane" {
-  count                  = 3
+  count                  = 1
   instance_type          = var.control_plane_type
   iam_instance_profile   = aws_iam_instance_profile.profile.name
   ami                    = local.ami
