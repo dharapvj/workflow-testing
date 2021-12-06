@@ -17,6 +17,11 @@ spec:
     chart: kube-prometheus-stack
     helm:
       values: |
+        # We turn off monitoring of etcd, kube-proxy, scheduler and controller-manager
+        kubeEtcd:
+          enabled: false
+        kubeProxy:
+          enabled: false
         kubeScheduler:
           enabled: false
         kubeControllerManager:
