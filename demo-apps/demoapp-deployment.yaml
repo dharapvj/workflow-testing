@@ -23,9 +23,9 @@ spec:
         - containerPort: 3000
         env:
         - name: MESSAGE
-          value: "Hello from the TechZooka session"
+          value: "ArgoCD demo in Kube Warriors session"
         - name: BGCOLOR
-          value: "lightsalmon"
+          value: "purple"
 ---
 apiVersion: v1
 kind: Service

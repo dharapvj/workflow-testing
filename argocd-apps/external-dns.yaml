@@ -20,7 +20,7 @@ spec:
     helm:
       values: |
         dryRun: false
-
+        replicas: 3
         aws:
           region: "ap-south-1"
 
