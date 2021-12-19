@@ -23,9 +23,9 @@ spec:
         - containerPort: 3000
         env:
         - name: MESSAGE
-          value: "ArgoCD demo in Kube Warriors session"
+          value: "ArgoCD demo - autosync - in Kube Warriors session"
         - name: BGCOLOR
-          value: "purple"
+          value: "yellow"
 ---
 apiVersion: v1
 kind: Service
