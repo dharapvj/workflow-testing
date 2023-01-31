@@ -10,7 +10,7 @@
       "Effect": "Allow",
       "Action": "sts:AssumeRole",
       "Principal": {
-        "AWS": "arn:aws:iam::064814169464:role/vj1-host",
+        "AWS": "arn:aws:iam::064814169464:role/external-dns-role-demo",
         "Service": "ec2.amazonaws.com"
       }
     }
@@ -29,7 +29,7 @@
             ],
             "Effect": "Allow",
             "Resource": [
-                "arn:aws:route53:::hostedzone/Z07718862HZ7EMP8JYAFE"
+                "arn:aws:route53:::hostedzone/Z01351622MFU06PVJDQMD"
             ]
         },
         {

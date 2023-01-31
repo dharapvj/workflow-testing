@@ -1,0 +1,84 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    # You must replace this email address with your own.
+    # Let's Encrypt will use this to contact you about expiring
+    # certificates, and issues related to your account.
+    email: dream.it.pvt.ltd@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      # Secret resource that will be used to store the account's private key.
+      name: dreamit-ltd-issuer-account-key
+    # Add a single challenge solver, HTTP01 using nginx
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cert-manager-demo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msg-label1
+  template:
+    metadata:
+      labels:
+        app: msg-label1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "3000"
+    spec:
+      containers: 
+      - name: node-bgcolor
+        image: dharapvj/bgcolor-text-demo:1.1
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MESSAGE
+          value: "Kubernetes on autopilot"
+        - name: BGCOLOR
+          value: "cornflowerblue"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cert-manager-demo-svc
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: msg-label1
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cert-manager-demo-ing
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: tls.demo.dreamit.ltd
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cert-manager-demo-svc
+                port:
+                  number: 3000
+  tls:
+  - hosts:
+    - tls.demo.dreamit.ltd
+    secretName: tls-demo-app-cert

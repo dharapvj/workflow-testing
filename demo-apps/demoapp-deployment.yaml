@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: message-app0
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: msg-label0
@@ -23,9 +23,9 @@ spec:
         - containerPort: 3000
         env:
         - name: MESSAGE
-          value: "ArgoCD demo - autosync - in Kube Warriors session"
+          value: "Kubernetes on autopilot"
         - name: BGCOLOR
-          value: "yellow"
+          value: "cornflowerblue"
 ---
 apiVersion: v1
 kind: Service
@@ -44,11 +44,11 @@ kind: Ingress
 metadata:
   name: demo-app-ing
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-    - host: demo-app.dh4r4pvj.ga
+    - host: demo-app.demo.dreamit.ltd
       http:
         paths:
           - path: /
@@ -58,7 +58,7 @@ spec:
                 name: test-app-svc
                 port:
                   number: 3000
-  tls:
-  - hosts:
-    - demo-app.dh4r4pvj.ga
-    secretName: demo-app-cert
+  # tls:
+  # - hosts:
+  #   - demo-app.demo.dreamit.ltd
+  #   secretName: demo-app-cert

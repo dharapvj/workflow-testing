@@ -1,0 +1,126 @@
+apiVersion: kops.k8s.io/v1alpha2
+kind: Cluster
+metadata:
+  creationTimestamp: null
+  name: kopsdemo.k8s.local
+spec:
+  # Added for kube2iam to allow assume-role operations.
+  additionalPolicies:
+    node: |
+      [
+        {
+          "Effect": "Allow",
+          "Action": ["sts:AssumeRole"],
+          "Resource": ["*"]
+        }
+      ]
+  api:
+    loadBalancer:
+      type: Public
+  authorization:
+    rbac: {}
+  channel: stable
+  cloudProvider: aws
+  clusterAutoscaler:
+    enabled: true
+    scaleDownUnneededTime: 4m
+#  containerRuntime: containerd
+  etcdClusters:
+  - cpuRequest: 200m
+    etcdMembers:
+    - instanceGroup: master-ap-south-1a
+      name: a
+    memoryRequest: 100Mi
+    name: main
+  - cpuRequest: 100m
+    etcdMembers:
+    - instanceGroup: master-ap-south-1a
+      name: a
+    memoryRequest: 100Mi
+    name: events
+  externalPolicies:
+    node:
+    - arn:aws:iam::064814169464:policy/AllowExternalDNSUpdates
+  iam:
+    allowContainerRegistry: true
+    legacy: false
+  kubeDNS:
+    provider: CoreDNS
+    nodeLocalDNS:
+      enabled: false
+  kubelet:
+    anonymousAuth: false
+  kubernetesApiAccess:
+  - 0.0.0.0/0
+  kubernetesVersion: 1.23.15
+  metricsServer:
+    enabled: true
+    insecure: true
+  networkCIDR: 172.20.0.0/16
+  networking:
+    calico : {}
+  nonMasqueradeCIDR: 100.64.0.0/10
+  sshAccess:
+  - 0.0.0.0/0
+  subnets:
+  - cidr: 172.20.32.0/19
+    name: ap-south-1a
+    type: Public
+    zone: ap-south-1a
+  - cidr: 172.20.64.0/19
+    name: ap-south-1b
+    type: Public
+    zone: ap-south-1b
+  - cidr: 172.20.96.0/19
+    name: ap-south-1c
+    type: Public
+    zone: ap-south-1c
+  topology:
+    nodes: private
+
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  creationTimestamp: null
+  labels:
+    kops.k8s.io/cluster: kopsdemo.k8s.local
+  name: master-ap-south-1a
+spec:
+  image: 099720109477/ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20221212
+  machineType: t3a.medium
+  # maxPrice: "0.0091"
+  maxSize: 1
+  minSize: 1
+  volumeSize: 10
+  nodeLabels:
+    kops.k8s.io/instancegroup: master-ap-south-1a
+  role: Master
+  subnets:
+  - ap-south-1a
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  creationTimestamp: null
+  labels:
+    kops.k8s.io/cluster: kopsdemo.k8s.local
+  name: nodes
+spec:
+  image: 099720109477/ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20221212
+  machineType: t3a.medium
+  maxPrice: "0.0091"
+  maxSize: 3
+  minSize: 1
+  volumeSize: 30
+  nodeLabels:
+    kops.k8s.io/instancegroup: nodes
+  role: Node
+  subnets:
+  - ap-south-1a
+  - ap-south-1b
+  - ap-south-1c

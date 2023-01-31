@@ -1,0 +1,34 @@
+dryRun: false
+replicas: 3
+aws:
+  region: "ap-south-1"
+
+rbac:
+  create: true
+
+policy: "sync"
+
+domainFilters:
+  - demo.dreamit.ltd
+
+# FIXME: DO NOT USE IN PRODUCTION
+interval: 10s
+
+# set via helm so that you can refer to role ARN from terraform
+podAnnotations:
+  iam.amazonaws.com/role: "external-dns-role-demo"
+
+resources:
+  limits:
+    cpu: 5m
+    memory: 50Mi
+  requests:
+    cpu: 3m
+    memory: 50Mi
+
+# metrics:
+#   enabled: true
+#   serviceMonitor:
+#     enabled: true
+#     selector:
+#       release: kube-prometheus-stack
