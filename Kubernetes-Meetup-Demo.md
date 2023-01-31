@@ -7,7 +7,6 @@
 TODO: May be use flatcar image
 TODO: EKS support, Kubeone support - especially, ec2 instance profiles.. so that we don't need kube2iam.
 TODO: Add Cluster creation steps. Initially for KOPS. Kops is not the most used platform anymore i guess.
-TODO: Add ArgoCD deployment steps. if possible skip ArgoCD!
 
 # Automate reacting to variable compute power needs by using ClusterAutoscaler
 TODO: Add commands for scaling deployment.
@@ -26,7 +25,14 @@ make demo-external-dns
 validate the DNS record in Route53
 access http://demo-app.demo.dreamit.ltd in browser
 
-
 # Automate TLS certificate generation and application to ingress via tools like cert-manager
-TODO: Add instructions to deploy Cert-manager
-TODO: Add commands to deploy argocd-app to demonstrate DNS and TLS rules. (can we create 2 apps to separately demonstrate things)
+```shell
+# Deploy external-dns helm chart
+make deploy-cert-manager
+
+# Deploy the app which makes use of external DNS name in ingress
+make demo-cert-manager
+```
+validate the DNS record in Route53
+validate certificate CR in kubernetes cluster
+access http://tls.demo.dreamit.ltd in browser
