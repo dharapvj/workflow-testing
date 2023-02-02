@@ -112,9 +112,9 @@ metadata:
   name: nodes
 spec:
   image: 099720109477/ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20221212
-  machineType: t3a.medium
+  machineType: t3a.large
   maxPrice: "0.0091"
-  maxSize: 3
+  maxSize: 10
   minSize: 1
   volumeSize: 30
   nodeLabels:

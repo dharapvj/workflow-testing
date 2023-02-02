@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleepy-deployment
+  labels:
+    app: sleepy
+spec:
+  replicas: 1
+  strategy:
+  selector:
+    matchLabels:
+      app: sleepy
+  template:
+    metadata:
+      labels:
+        app: sleepy
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:1.24
+        args:
+        - sleep
+        - infinity
+        # This is added only for cluster-autoscaler demo
+        resources:
+          requests:
+            cpu: 200m
+            memory: 100Mi

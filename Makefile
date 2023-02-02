@@ -24,9 +24,11 @@ deploy-cert-manager:
   --version v1.11.0 \
   --set installCRDs=true
 
-$ FIXME: Add instructions for this
 demo-cluster-autoscaler:
-	echo Not implemented!
+	kubectl apply -f ./demo-apps/demoapp-deployment.yaml
+# to show autoscalen in work...
+# kubectl scale deploy sleepy-deployment --replicas 20
+
 
 demo-external-dns:
 	kubectl apply -f ./demo-apps/demoapp-deployment.yaml
