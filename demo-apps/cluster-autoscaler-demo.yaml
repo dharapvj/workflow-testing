@@ -20,7 +20,7 @@ spec:
         image: busybox:1.24
         args:
         - sleep
-        - infinity
+        - "3600"
         # This is added only for cluster-autoscaler demo
         resources:
           requests:
