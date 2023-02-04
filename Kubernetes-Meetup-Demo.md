@@ -37,7 +37,7 @@ make demo-external-dns
 validate the DNS record in Route53
 access http://demo-app.demo.dreamit.ltd in browser
 
-# Automate TLS certificate generation and application to ingress via tools like cert-manager
+## Automate TLS certificate generation and application to ingress via tools like cert-manager
 ```shell
 # Deploy external-dns helm chart
 make deploy-cert-manager
